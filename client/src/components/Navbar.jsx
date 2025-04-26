@@ -1,46 +1,62 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import ChatIcon from '@mui/icons-material/Chat';
-import HomeIcon from '@mui/icons-material/Home';
+import { Paper, BottomNavigation, BottomNavigationAction } from "@mui/material";
+import { Home, Camera, MessageSquare, Newspaper } from "lucide-react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#2E7D32' }}>
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          EmbrAlrt
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Button
-            color="inherit"
-            component={RouterLink}
-            to="/"
-            startIcon={<HomeIcon />}
-          >
-            Home
-          </Button>
-          <Button
-            color="inherit"
-            component={RouterLink}
-            to="/camera"
-            startIcon={<CameraAltIcon />}
-          >
-            Camera
-          </Button>
-          <Button
-            color="inherit"
-            component={RouterLink}
-            to="/chat"
-            startIcon={<ChatIcon />}
-          >
-            Chat
-          </Button>
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <Paper
+      sx={{
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        borderTop: "1px solid",
+        borderColor: "divider",
+      }}
+      elevation={3}
+    >
+      <BottomNavigation
+        value={currentPath}
+        sx={{
+          bgcolor: "background.paper",
+          height: 64,
+        }}
+      >
+        <BottomNavigationAction
+          label="Home"
+          value="/"
+          icon={<Home />}
+          component={RouterLink}
+          to="/"
+        />
+        <BottomNavigationAction
+          label="Camera"
+          value="/camera"
+          icon={<Camera />}
+          component={RouterLink}
+          to="/camera"
+        />
+        <BottomNavigationAction
+          label="Chat"
+          value="/chat"
+          icon={<MessageSquare />}
+          component={RouterLink}
+          to="/chat"
+        />
+        <BottomNavigationAction
+          label="News"
+          value="/news"
+          icon={<Newspaper />}
+          component={RouterLink}
+          to="/news"
+        />
+      </BottomNavigation>
+    </Paper>
   );
 };
 
-export default Navbar; 
+export default Navbar;
