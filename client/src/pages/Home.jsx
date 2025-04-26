@@ -1,67 +1,235 @@
-import React from 'react';
-import { Box, Typography, Paper, Grid, Card, CardContent } from '@mui/material';
-import WarningIcon from '@mui/icons-material/Warning';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import TimelineIcon from '@mui/icons-material/Timeline';
+import React from "react";
+import {
+  Box,
+  Typography,
+  Paper,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import WarningIcon from "@mui/icons-material/Warning";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import {
+  Thermometer,
+  Droplet,
+  Wind,
+  AlertTriangle,
+  Map,
+  Cloud,
+  Clock,
+} from "lucide-react";
 
 const Home = () => {
+  const safetyTips = [
+    "Create an evacuation plan for your family",
+    "Keep a 72-hour emergency kit ready",
+    "Clear vegetation within 30 feet of your home",
+    "Stay informed about local fire conditions",
+    "Know your evacuation routes",
+  ];
+
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Wildfire Detection Dashboard
+    <Box sx={{ p: 3, pb: 8 }}>
+      <Typography variant="h4" component="h1" gutterBottom color="text.primary">
+        Downtown San Jose, CA
       </Typography>
-      
+
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%' }}>
+        {/* Current Conditions */}
+        <Grid item xs={12}>
+          <Card>
             <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <WarningIcon color="error" sx={{ mr: 1 }} />
-                <Typography variant="h6">Active Alerts</Typography>
-              </Box>
-              <Typography variant="h3">0</Typography>
-              <Typography color="text.secondary">No active wildfires detected</Typography>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Current Conditions
+              </Typography>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <Thermometer color="white" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Temperature"
+                    secondary="75°F"
+                    primaryTypographyProps={{ color: "text.primary" }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Droplet color="white" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Humidity"
+                    secondary="55%"
+                    primaryTypographyProps={{ color: "text.primary" }}
+                  />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Wind color="white" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Wind Speed"
+                    secondary="12 mph"
+                    primaryTypographyProps={{ color: "text.primary" }}
+                  />
+                </ListItem>
+              </List>
             </CardContent>
           </Card>
         </Grid>
-        
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%' }}>
+
+        {/* Air Quality */}
+        <Grid item xs={12}>
+          <Card>
             <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <CameraAltIcon color="primary" sx={{ mr: 1 }} />
-                <Typography variant="h6">Active Cameras</Typography>
-              </Box>
-              <Typography variant="h3">3</Typography>
-              <Typography color="text.secondary">Cameras monitoring</Typography>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Air Quality
+              </Typography>
+              <Typography variant="h4" color="secondary.main">
+                85 AQI
+              </Typography>
+              <Typography color="text.primary">
+                Moderate: Acceptable; however, there may be a risk for some
+                people.
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
-        
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%' }}>
+
+        {/* Wildfire Risk */}
+        <Grid item xs={12}>
+          <Card>
             <CardContent>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <TimelineIcon color="success" sx={{ mr: 1 }} />
-                <Typography variant="h6">System Status</Typography>
-              </Box>
-              <Typography variant="h3">100%</Typography>
-              <Typography color="text.secondary">All systems operational</Typography>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Wildfire Risk
+              </Typography>
+              <Typography variant="h4" color="warning.main">
+                6/10
+              </Typography>
+              <Typography color="warning.main">Moderate Risk</Typography>
+              <Typography color="text.primary">
+                Moderate risk of wildfire due to current weather conditions.
+              </Typography>
             </CardContent>
           </Card>
+        </Grid>
+
+        {/* Fire Weather Alert */}
+        <Grid item xs={12}>
+          <Card sx={{ bgcolor: "error.main" }}>
+            <CardContent>
+              <Box display="flex" alignItems="center">
+                <AlertTriangle color="white" style={{ marginRight: 8 }} />
+                <Typography variant="h6" color="white">
+                  Red Flag Warning: Critical Fire Conditions
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Historical Wildfire Map */}
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Past Wildfire Locations
+              </Typography>
+              <Box
+                sx={{
+                  height: 200,
+                  bgcolor: "rgba(0, 0, 0, 0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography color="text.primary">Map Placeholder</Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Drought Status */}
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Drought Status
+              </Typography>
+              <Typography variant="h5" color="text.primary">
+                Moderate Drought (D2 Level)
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Fire Response Tips */}
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Fire Response Tips
+              </Typography>
+              <List>
+                {safetyTips.map((tip, index) => (
+                  <ListItem key={index}>
+                    <ListItemText
+                      primary={tip}
+                      primaryTypographyProps={{ color: "text.primary" }}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Forecast and Risk Time */}
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom color="text.primary">
+                Forecast
+              </Typography>
+              <Box display="flex" alignItems="center" mb={2}>
+                <Cloud color="white" style={{ marginRight: 8 }} />
+                <Typography color="text.primary">
+                  AQI forecast: 90 tomorrow
+                </Typography>
+              </Box>
+              <Box display="flex" alignItems="center">
+                <Clock color="white" style={{ marginRight: 8 }} />
+                <Typography color="text.primary">
+                  Highest Fire Risk expected at 3PM
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Contact Authorities Button */}
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              sx={{ width: "100%", maxWidth: 400 }}
+            >
+              Contact Authorities
+            </Button>
+          </Box>
         </Grid>
       </Grid>
-      
-      <Paper sx={{ p: 3, mt: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Recent Activity
-        </Typography>
-        <Typography color="text.secondary">
-          No recent wildfire activity detected
-        </Typography>
-      </Paper>
     </Box>
   );
 };
 
-export default Home; 
+export default Home;

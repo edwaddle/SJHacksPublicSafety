@@ -1,135 +1,124 @@
-import React, { useState } from 'react';
-import { Box, Typography, Paper, Grid, Card, CardContent, Button, Alert } from '@mui/material';
-import VideocamIcon from '@mui/icons-material/Videocam';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Grid,
+} from "@mui/material";
+import { Upload, Image as ImageIcon } from "lucide-react";
 
 const Camera = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [analysisResult, setAnalysisResult] = useState(null);
-  const [error, setError] = useState(null);
-
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setAnalysisResult(null);
-    setError(null);
-  };
-
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      setError('Please select an image first');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', selectedFile);
-
-    try {
-      const response = await fetch('http://localhost:3001/api/analyze-image', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to analyze image');
-      }
-
-      const data = await response.json();
-      setAnalysisResult(data.result);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-      setAnalysisResult(null);
-    }
-  };
-
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Camera Feed
+    <Box sx={{ p: 3, pb: 8 }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Image Analysis
       </Typography>
-      
+
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 2, height: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <Box sx={{ textAlign: 'center', mb: 2 }}>
-              <VideocamIcon sx={{ fontSize: 60, color: 'text.secondary' }} />
-              <Typography variant="h6" color="text.secondary">
-                Camera Feed 1
-              </Typography>
-            </Box>
-            <input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              type="file"
-              onChange={handleFileChange}
-            />
-            <label htmlFor="raised-button-file">
-              <Button
-                variant="contained"
-                component="span"
-                startIcon={<CloudUploadIcon />}
-                sx={{ mb: 2 }}
-              >
+        {/* Image Upload Section */}
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
                 Upload Image
-              </Button>
-            </label>
-            {selectedFile && (
-              <Typography variant="body2" sx={{ mb: 2 }}>
-                Selected: {selectedFile.name}
               </Typography>
-            )}
+              <Box
+                sx={{
+                  height: 200,
+                  border: "2px dashed",
+                  borderColor: "primary.main",
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mb: 2,
+                }}
+              >
+                <Upload size={48} style={{ marginBottom: 16 }} />
+                <Typography>Drag and drop an image here</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  or
+                </Typography>
+                <Button variant="contained" sx={{ mt: 1 }}>
+                  Browse Files
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Image Preview */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Image Preview
+              </Typography>
+              <Box
+                sx={{
+                  height: 300,
+                  bgcolor: "grey.200",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 1,
+                }}
+              >
+                <ImageIcon size={48} />
+                <Typography sx={{ ml: 1 }}>No image selected</Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Analysis Results */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Analysis Results
+              </Typography>
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="subtitle1">Wildfire Risk</Typography>
+                <Typography variant="h4" color="warning.main">
+                  6/10
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="subtitle1">Confidence Level</Typography>
+                <Typography variant="h4" color="primary.main">
+                  85%
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="subtitle1">Analysis</Typography>
+                <Typography>
+                  The image shows moderate risk factors for wildfire, including
+                  dry vegetation and high temperatures.
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        {/* Analyze Button */}
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center">
             <Button
               variant="contained"
               color="primary"
-              onClick={handleUpload}
-              disabled={!selectedFile}
+              size="large"
+              sx={{ width: "100%", maxWidth: 400 }}
             >
               Analyze Image
             </Button>
-          </Paper>
-        </Grid>
-        
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ p: 2, height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Box sx={{ textAlign: 'center' }}>
-              <VideocamIcon sx={{ fontSize: 60, color: 'text.secondary' }} />
-              <Typography variant="h6" color="text.secondary">
-                Camera Feed 2
-              </Typography>
-              <Typography color="text.secondary">
-                Live feed will be displayed here
-              </Typography>
-            </Box>
-          </Paper>
+          </Box>
         </Grid>
       </Grid>
-      
-      <Card sx={{ mt: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Analysis Results
-          </Typography>
-          {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {error}
-            </Alert>
-          )}
-          {analysisResult && (
-            <Alert 
-              severity={analysisResult === 'YES' ? 'error' : analysisResult === 'NO' ? 'success' : 'warning'}
-              sx={{ mb: 2 }}
-            >
-              Wildfire Detection: {analysisResult}
-            </Alert>
-          )}
-          <Typography color="text.secondary">
-            {!analysisResult && !error && 'Upload an image to analyze for wildfire detection'}
-          </Typography>
-        </CardContent>
-      </Card>
     </Box>
   );
 };
 
-export default Camera; 
+export default Camera;

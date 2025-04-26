@@ -6,4 +6,5 @@ npm run dev
 Client (front end)
 port: 5173
 npm i
+npm i lucide-react
 npm run dev
