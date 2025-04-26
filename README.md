@@ -1,5 +1,5 @@
 Server (backend)
-port: 3001
+port: 4000
 npm i
 npm run dev
 
