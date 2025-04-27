@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  Button,
   List,
   ListItem,
   ListItemIcon,
@@ -25,6 +24,7 @@ import {
   Clock,
 } from "lucide-react";
 import "../index.css";
+import { Button } from "@/components/ui/button";
 
 const Home = () => {
   const safetyTips = [
@@ -40,6 +40,9 @@ const Home = () => {
       <div className="flex flex-col items-center justify-center">
         <div className="text-black">LMAOO</div>
         <div className="text-white">LMAOO</div>
+      </div>
+      <div className="flex flex-col items-center justify-center min-h-svh">
+        <Button>Click me</Button>
       </div>
       <Typography variant="h4" component="h1" gutterBottom color="text.primary">
         Downtown San Jose, CA

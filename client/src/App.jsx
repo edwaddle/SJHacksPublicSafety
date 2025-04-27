@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Camera from "./pages/Camera";
 import Chat from "./pages/Chat";
 import "./index.css";
+import { Button } from "@/components/ui/button";
 
 function App() {
   return (
