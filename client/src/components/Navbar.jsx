@@ -33,13 +33,7 @@ const Navbar = () => {
           component={RouterLink}
           to="/"
         />
-        <BottomNavigationAction
-          label="Camera"
-          value="/camera"
-          icon={<Camera />}
-          component={RouterLink}
-          to="/camera"
-        />
+  
         <BottomNavigationAction
           label="Chat"
           value="/chat"
