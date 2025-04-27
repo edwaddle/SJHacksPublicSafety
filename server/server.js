@@ -14,6 +14,7 @@ app.use(cors({
   origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
+  credentials: true
 }));
 
 // Parse JSON bodies
@@ -22,18 +23,28 @@ app.use(express.json());
 // Configure multer for file uploads
 const storage = multer.memoryStorage();
 const fileFilter = (req, file, cb) => {
-  // Check if the file is an image
-  if (!file.mimetype.startsWith('image/')) {
-    return cb(new Error('Only image files are allowed!'), false);
+  // Check if the file is an image or audio
+  if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('audio/')) {
+    // Check for specific image formats if it's an image
+    if (file.mimetype.startsWith('image/')) {
+      const allowedImageTypes = ['image/jpeg', 'image/png'];
+      if (!allowedImageTypes.includes(file.mimetype)) {
+        return cb(new Error('Only JPG and PNG images are allowed!'), false);
+      }
+    }
+    
+    // Allow audio files
+    if (file.mimetype.startsWith('audio/')) {
+      const allowedAudioTypes = ['audio/wav', 'audio/mp3', 'audio/mpeg', 'audio/webm'];
+      if (!allowedAudioTypes.includes(file.mimetype)) {
+        return cb(new Error('Only WAV, MP3, and WebM audio files are allowed!'), false);
+      }
+    }
+    
+    cb(null, true);
+  } else {
+    return cb(new Error('Only image and audio files are allowed!'), false);
   }
-
-  // Check for specific image formats
-  const allowedTypes = ['image/jpeg', 'image/png'];
-  if (!allowedTypes.includes(file.mimetype)) {
-    return cb(new Error('Only JPG and PNG images are allowed!'), false);
-  }
-
-  cb(null, true);
 };
 
 const upload = multer({
@@ -65,8 +76,14 @@ app.get("/api/health", (req, res) => {
 app.get("/api/upload/config", (req, res) => {
   res.json({
     maxFileSize: 5 * 1024 * 1024,
-    supportedFileTypes: ["image/jpeg", "image/png"],
-    supportedExtensions: [".jpg", ".jpeg", ".png"],
+    supportedFileTypes: {
+      image: ["image/jpeg", "image/png"],
+      audio: ["audio/wav", "audio/mp3", "audio/mpeg", "audio/webm"]
+    },
+    supportedExtensions: {
+      image: [".jpg", ".jpeg", ".png"],
+      audio: [".wav", ".mp3", ".webm"]
+    },
     serverStatus: "ready"
   });
 });
@@ -223,7 +240,7 @@ app.post("/api/chat/message", async (req, res) => {
         {
           role: "system", 
           content: `You are EmbrAlrt's AI assistant specializing in wildfire safety, prevention, and emergency response information.
-          
+      
 Provide clear, concise information about:
 - Wildfire prevention and safety measures
 - Evacuation procedures and preparation
@@ -232,7 +249,24 @@ Provide clear, concise information about:
 - Environmental factors affecting wildfires
 - Resources for wildfire victims
 
-Keep responses focused on wildfire-related topics. Maintain a helpful, informative tone while emphasizing safety. Use bullet points for clarity when appropriate. If asked about topics outside wildfire safety, politely redirect to relevant information.`
+CALIFORNIA WILDFIRE CONTEXT:
+- California experiences an annual wildfire season, typically from May through October, with peak activity in late summer and fall.
+- Climate change has extended the wildfire season and increased the frequency and intensity of fires.
+- Major causes include lightning strikes, power line failures, human activities, and arson.
+- Key risk factors: dry vegetation, strong winds (especially Santa Ana and Diablo winds), drought conditions, and high temperatures.
+
+SAFETY GUIDELINES:
+- Create a defensible space of 100 feet around homes by removing flammable vegetation.
+- Prepare a "go bag" with essential items including medications, important documents, and personal items.
+- Sign up for local emergency alerts through Cal Fire or your county emergency services.
+- Know multiple evacuation routes from your neighborhood and practice them with family members.
+- If told to evacuate, do so immediately - don't wait or delay.
+
+LOCAL RESOURCES:
+- Cal Fire: 1-800-952-5647 or https://www.fire.ca.gov
+- Emergency: Call 911
+- Red Cross Northern California: 1-800-733-2767
+- California Office of Emergency Services: https://www.caloes.ca.gov`
         },
         { role: "user", content: message }
       ],
@@ -251,6 +285,61 @@ Keep responses focused on wildfire-related topics. Maintain a helpful, informati
     res.status(500).json({
       error: "Error processing chat message",
       details: error.message || "An unknown error occurred with the chat service"
+    });
+  }
+});
+
+// Speech transcription endpoint
+app.post("/api/transcribe", upload.single("audio"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        error: "No audio file provided",
+        details: "Please provide an audio file"
+      });
+    }
+
+    // Get language from request
+    const language = req.body.language || "english";
+    
+    // Map language to OpenAI language code
+    const languageMap = {
+      english: "en",
+      spanish: "es",
+      hindi: "hi",
+      chinese: "zh",
+      vietnamese: "vi",
+      tagalog: "tl"
+    };
+    
+    // Default to English if language not supported
+    const languageCode = languageMap[language] || "en";
+    
+    // Convert audio buffer to base64
+    const base64Audio = req.file.buffer.toString("base64");
+    
+    // Call OpenAI's Whisper API for transcription
+    const response = await openai.audio.transcriptions.create({
+      file: {
+        data: req.file.buffer,
+        name: "audio.wav",
+      },
+      model: "whisper-1",
+      language: languageCode,
+      response_format: "json",
+    });
+    
+    // Return the transcription
+    res.json({
+      transcription: response.text,
+      language: language,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error("Transcription error:", error);
+    res.status(500).json({
+      error: "Error processing audio",
+      details: error.message || "An unknown error occurred with the transcription service"
     });
   }
 });
