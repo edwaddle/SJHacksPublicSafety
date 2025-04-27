@@ -95,7 +95,7 @@ MIT License. Feel free to fork and build upon EmbrAlert!
 
 ## Team
 
-Sarthak Sethi 
-Edwin Yue
-Samson Xu
+Sarthak Sethi, 
+Edwin Yue,
+Samson Xu, 
 Tanzil Ahmed
