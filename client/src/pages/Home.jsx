@@ -24,6 +24,7 @@ import {
   Cloud,
   Clock,
 } from "lucide-react";
+import "../index.css";
 
 const Home = () => {
   const safetyTips = [
@@ -36,6 +37,10 @@ const Home = () => {
 
   return (
     <Box sx={{ p: 3, pb: 8 }}>
+      <div className="flex flex-col items-center justify-center">
+        <div className="text-black">LMAOO</div>
+        <div className="text-white">LMAOO</div>
+      </div>
       <Typography variant="h4" component="h1" gutterBottom color="text.primary">
         Downtown San Jose, CA
       </Typography>
