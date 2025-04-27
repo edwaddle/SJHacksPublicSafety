@@ -1,4 +1,4 @@
-import { Home, MessageSquare, Upload } from "lucide-react";
+import { Home, MessageSquare, Upload, Mic, Camera } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -31,7 +31,15 @@ const Navbar = () => {
           <span>Chat</span>
         </Link>
 
-        
+        <Link to="/microphone" className={getNavItemClass("/microphone")}>
+          <Mic className="h-6 w-6 mb-1" />
+          <span>Voice</span>
+        </Link>
+
+        <Link to="/camera" className={getNavItemClass("/camera")}>
+          <Camera className="h-6 w-6 mb-1" />
+          <span>Camera</span>
+        </Link>
       </nav>
     </div>
   );
