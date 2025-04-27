@@ -1,55 +1,37 @@
-import { Paper, BottomNavigation, BottomNavigationAction } from "@mui/material";
-import { Home, Camera, MessageSquare, Newspaper } from "lucide-react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Home, MessageSquare, Newspaper } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
+  const getNavItemClass = (path) => {
+    const baseClasses = "flex flex-col items-center justify-center flex-1 py-2 text-sm transition-colors";
+    
+    return currentPath === path
+      ? `${baseClasses} text-amber-500`
+      : `${baseClasses} text-gray-500 hover:text-amber-400`;
+  };
+
   return (
-    <Paper
-      sx={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        borderTop: "1px solid",
-        borderColor: "divider",
-      }}
-      elevation={3}
-    >
-      <BottomNavigation
-        value={currentPath}
-        sx={{
-          bgcolor: "background.paper",
-          height: 64,
-        }}
-      >
-        <BottomNavigationAction
-          label="Home"
-          value="/"
-          icon={<Home />}
-          component={RouterLink}
-          to="/"
-        />
-  
-        <BottomNavigationAction
-          label="Chat"
-          value="/chat"
-          icon={<MessageSquare />}
-          component={RouterLink}
-          to="/chat"
-        />
-        <BottomNavigationAction
-          label="News"
-          value="/news"
-          icon={<Newspaper />}
-          component={RouterLink}
-          to="/news"
-        />
-      </BottomNavigation>
-    </Paper>
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-slate-800 border-t border-slate-700 shadow-lg">
+      <nav className="flex items-center justify-around h-16">
+        <Link to="/" className={getNavItemClass("/")}>
+          <Home className="h-6 w-6 mb-1" />
+          <span>Home</span>
+        </Link>
+
+        <Link to="/chat" className={getNavItemClass("/chat")}>
+          <MessageSquare className="h-6 w-6 mb-1" />
+          <span>Chat</span>
+        </Link>
+
+        <Link to="/news" className={getNavItemClass("/news")}>
+          <Newspaper className="h-6 w-6 mb-1" />
+          <span>News</span>
+        </Link>
+      </nav>
+    </div>
   );
 };
 

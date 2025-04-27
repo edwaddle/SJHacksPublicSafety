@@ -1,26 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  Card,
-  CardContent,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-
-import {
-  Thermometer,
-  Droplet,
-  Wind,
-  AlertTriangle,
-  Map,
-  Cloud,
-  Clock,
-} from "lucide-react";
+import { Thermometer, Droplet, Wind, AlertTriangle, Map, Cloud, Clock } from "lucide-react";
 import "../index.css";
 import { Button } from "@/components/ui/button";
 
@@ -34,202 +13,183 @@ const Home = () => {
   ];
 
   return (
-    <Box sx={{ p: 3, pb: 8 }}>
-      
-      
-      <Typography variant="h4" component="h1" gutterBottom color="text.primary">
-        Downtown San Jose, CA
-      </Typography>
+    <div className="bg-slate-900 min-h-screen py-10 px-4 sm:px-6 text-white">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-amber-400">
+          EmbrAlrt - Wildfire Monitoring
+        </h1>
+        
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-white">
+          Downtown San Jose, CA
+        </h2>
 
-      <Grid container spacing={3}>
-        {/* Current Conditions */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Current Conditions */}
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
                 Current Conditions
-              </Typography>
-              <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <Thermometer color="white" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Temperature"
-                    secondary="75°F"
-                    primaryTypographyProps={{ color: "text.primary" }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Droplet color="white" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Humidity"
-                    secondary="55%"
-                    primaryTypographyProps={{ color: "text.primary" }}
-                  />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Wind color="white" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Wind Speed"
-                    secondary="12 mph"
-                    primaryTypographyProps={{ color: "text.primary" }}
-                  />
-                </ListItem>
-              </List>
-            </CardContent>
-          </Card>
-        </Grid>
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-center">
+                  <div className="mr-3 text-amber-400">
+                    <Thermometer size={24} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Temperature</p>
+                    <p className="text-gray-300">75°F</p>
+                  </div>
+                </li>
+                <li className="flex items-center">
+                  <div className="mr-3 text-blue-400">
+                    <Droplet size={24} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Humidity</p>
+                    <p className="text-gray-300">55%</p>
+                  </div>
+                </li>
+                <li className="flex items-center">
+                  <div className="mr-3 text-gray-400">
+                    <Wind size={24} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Wind Speed</p>
+                    <p className="text-gray-300">12 mph</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-        {/* Air Quality */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
+          {/* Air Quality */}
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
                 Air Quality
-              </Typography>
-              <Typography variant="h4" color="secondary.main">
-                85 AQI
-              </Typography>
-              <Typography color="text.primary">
+              </h3>
+              <p className="text-3xl font-bold text-yellow-500 mb-2">85 AQI</p>
+              <p className="text-gray-300">
                 Moderate: Acceptable; however, there may be a risk for some
                 people.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Wildfire Risk */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
-                Wildfire Risk
-              </Typography>
-              <Typography variant="h4" color="warning.main">
-                6/10
-              </Typography>
-              <Typography color="warning.main">Moderate Risk</Typography>
-              <Typography color="text.primary">
-                Moderate risk of wildfire due to current weather conditions.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+        <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+          <div className="p-5">
+            <h3 className="text-xl font-semibold mb-4 text-white">
+              Wildfire Risk
+            </h3>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-3xl font-bold text-orange-500 mb-1">6/10</p>
+                <p className="text-orange-400 font-medium">Moderate Risk</p>
+                <p className="text-gray-300 mt-2">
+                  Moderate risk of wildfire due to current weather conditions.
+                </p>
+              </div>
+              <div className="h-24 w-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center">
+                <span className="text-3xl font-bold">6</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Fire Weather Alert */}
-        <Grid item xs={12}>
-          <Card sx={{ bgcolor: "error.main" }}>
-            <CardContent>
-              <Box display="flex" alignItems="center">
-                <AlertTriangle color="white" style={{ marginRight: 8 }} />
-                <Typography variant="h6" color="white">
-                  Red Flag Warning: Critical Fire Conditions
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+        <div className="mb-8 bg-red-600 rounded-xl shadow-lg overflow-hidden">
+          <div className="p-5 flex items-center">
+            <AlertTriangle size={28} className="mr-3 text-white" />
+            <h3 className="text-xl font-semibold text-white">
+              Red Flag Warning: Critical Fire Conditions
+            </h3>
+          </div>
+        </div>
 
-        {/* Historical Wildfire Map */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Historical Wildfire Map */}
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
                 Past Wildfire Locations
-              </Typography>
-              <Box
-                sx={{
-                  height: 200,
-                  bgcolor: "rgba(0, 0, 0, 0.2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography color="text.primary">Map Placeholder</Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+              </h3>
+              <div className="h-48 bg-slate-700 rounded-lg flex items-center justify-center">
+                <p className="text-gray-400">Map Placeholder</p>
+              </div>
+            </div>
+          </div>
 
-        {/* Drought Status */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
+          {/* Drought Status */}
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
                 Drought Status
-              </Typography>
-              <Typography variant="h5" color="text.primary">
-                Moderate Drought (D2 Level)
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+              </h3>
+              <div className="flex items-center">
+                <div className="flex-1">
+                  <p className="text-xl font-semibold text-white">
+                    Moderate Drought
+                  </p>
+                  <p className="text-amber-400">(D2 Level)</p>
+                </div>
+                <div className="w-20 h-20 bg-gradient-to-r from-amber-300 to-amber-500 rounded-full flex items-center justify-center">
+                  <span className="font-bold text-white">D2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Fire Response Tips */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
-                Fire Response Tips
-              </Typography>
-              <List>
-                {safetyTips.map((tip, index) => (
-                  <ListItem key={index}>
-                    <ListItemText
-                      primary={tip}
-                      primaryTypographyProps={{ color: "text.primary" }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-        </Grid>
+        <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+          <div className="p-5">
+            <h3 className="text-xl font-semibold mb-4 text-white">
+              Fire Response Tips
+            </h3>
+            <ul className="space-y-2">
+              {safetyTips.map((tip, index) => (
+                <li key={index} className="flex items-start">
+                  <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-500 text-white mr-3">
+                    {index + 1}
+                  </span>
+                  <p className="text-gray-300">{tip}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
         {/* Forecast and Risk Time */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom color="text.primary">
-                Forecast
-              </Typography>
-              <Box display="flex" alignItems="center" mb={2}>
-                <Cloud color="white" style={{ marginRight: 8 }} />
-                <Typography color="text.primary">
-                  AQI forecast: 90 tomorrow
-                </Typography>
-              </Box>
-              <Box display="flex" alignItems="center">
-                <Clock color="white" style={{ marginRight: 8 }} />
-                <Typography color="text.primary">
-                  Highest Fire Risk expected at 3PM
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+        <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+          <div className="p-5">
+            <h3 className="text-xl font-semibold mb-4 text-white">
+              Forecast
+            </h3>
+            <div className="flex items-center mb-4">
+              <Cloud className="mr-3 text-blue-400" size={24} />
+              <p className="text-gray-300">
+                AQI forecast: <span className="text-yellow-500 font-medium">90 tomorrow</span>
+              </p>
+            </div>
+            <div className="flex items-center">
+              <Clock className="mr-3 text-gray-400" size={24} />
+              <p className="text-gray-300">
+                Highest Fire Risk expected at <span className="text-red-400 font-medium">3PM</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Contact Authorities Button */}
-        <Grid item xs={12}>
-          <Box display="flex" justifyContent="center" mt={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{ width: "100%", maxWidth: 400 }}
-            >
-              Contact Authorities
-            </Button>
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+        <div className="flex justify-center mt-6 mb-10">
+          <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            Contact Authorities
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
