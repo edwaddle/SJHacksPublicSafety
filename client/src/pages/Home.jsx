@@ -9,6 +9,8 @@ import {
   Clock,
 } from "lucide-react";
 import "../index.css";
+import { Button } from "@/components/ui/button";
+import WeatherWildfireInfo from "../components/WeatherWildfireInfo";
 
 const Home = () => {
   const safetyTips = [
@@ -31,43 +33,8 @@ const Home = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Current Conditions */}
-          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
-            <div className="p-5">
-              <h3 className="text-xl font-semibold mb-4 text-white">
-                Current Conditions
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-center">
-                  <div className="mr-3 text-amber-400">
-                    <Thermometer size={24} />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Temperature</p>
-                    <p className="text-gray-300">75°F</p>
-                  </div>
-                </li>
-                <li className="flex items-center">
-                  <div className="mr-3 text-blue-400">
-                    <Droplet size={24} />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Humidity</p>
-                    <p className="text-gray-300">55%</p>
-                  </div>
-                </li>
-                <li className="flex items-center">
-                  <div className="mr-3 text-gray-400">
-                    <Wind size={24} />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Wind Speed</p>
-                    <p className="text-gray-300">12 mph</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+          {/* Weather Component - Live Data */}
+          <WeatherWildfireInfo />
 
           {/* Air Quality */}
           <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
