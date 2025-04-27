@@ -2,6 +2,7 @@ import React from "react";
 import { Thermometer, Droplet, Wind, AlertTriangle, Map, Cloud, Clock } from "lucide-react";
 import "../index.css";
 import { Button } from "@/components/ui/button";
+import WeatherWildfireInfo from "../components/WeatherWildfireInfo";
 
 const Home = () => {
   const safetyTips = [
@@ -23,45 +24,12 @@ const Home = () => {
           Downtown San Jose, CA
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Current Conditions */}
-          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
-            <div className="p-5">
-              <h3 className="text-xl font-semibold mb-4 text-white">
-                Current Conditions
-              </h3>
-              <ul className="space-y-4">
-                <li className="flex items-center">
-                  <div className="mr-3 text-amber-400">
-                    <Thermometer size={24} />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Temperature</p>
-                    <p className="text-gray-300">75°F</p>
-                  </div>
-                </li>
-                <li className="flex items-center">
-                  <div className="mr-3 text-blue-400">
-                    <Droplet size={24} />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Humidity</p>
-                    <p className="text-gray-300">55%</p>
-                  </div>
-                </li>
-                <li className="flex items-center">
-                  <div className="mr-3 text-gray-400">
-                    <Wind size={24} />
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">Wind Speed</p>
-                    <p className="text-gray-300">12 mph</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+        {/* Real-time Weather and Wildfire Data from API */}
+        <div className="mb-8">
+          <WeatherWildfireInfo />
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Air Quality */}
           <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
             <div className="p-5">
@@ -73,51 +41,6 @@ const Home = () => {
                 Moderate: Acceptable; however, there may be a risk for some
                 people.
               </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Wildfire Risk */}
-        <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
-          <div className="p-5">
-            <h3 className="text-xl font-semibold mb-4 text-white">
-              Wildfire Risk
-            </h3>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-3xl font-bold text-orange-500 mb-1">6/10</p>
-                <p className="text-orange-400 font-medium">Moderate Risk</p>
-                <p className="text-gray-300 mt-2">
-                  Moderate risk of wildfire due to current weather conditions.
-                </p>
-              </div>
-              <div className="h-24 w-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center">
-                <span className="text-3xl font-bold">6</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Fire Weather Alert */}
-        <div className="mb-8 bg-red-600 rounded-xl shadow-lg overflow-hidden">
-          <div className="p-5 flex items-center">
-            <AlertTriangle size={28} className="mr-3 text-white" />
-            <h3 className="text-xl font-semibold text-white">
-              Red Flag Warning: Critical Fire Conditions
-            </h3>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Historical Wildfire Map */}
-          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
-            <div className="p-5">
-              <h3 className="text-xl font-semibold mb-4 text-white">
-                Past Wildfire Locations
-              </h3>
-              <div className="h-48 bg-slate-700 rounded-lg flex items-center justify-center">
-                <p className="text-gray-400">Map Placeholder</p>
-              </div>
             </div>
           </div>
 
@@ -142,22 +65,67 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Fire Response Tips */}
+        {/* Fire Weather Alert */}
+        <div className="mb-8 bg-red-600 rounded-xl shadow-lg overflow-hidden">
+          <div className="p-5 flex items-center">
+            <AlertTriangle size={28} className="mr-3 text-white" />
+            <h3 className="text-xl font-semibold text-white">
+              Red Flag Warning: Critical Fire Conditions
+            </h3>
+          </div>
+        </div>
+
+        {/* Wildfire Risk */}
         <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
           <div className="p-5">
             <h3 className="text-xl font-semibold mb-4 text-white">
-              Fire Response Tips
+              Wildfire Risk
             </h3>
-            <ul className="space-y-2">
-              {safetyTips.map((tip, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-500 text-white mr-3">
-                    {index + 1}
-                  </span>
-                  <p className="text-gray-300">{tip}</p>
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-3xl font-bold text-orange-500 mb-1">6/10</p>
+                <p className="text-orange-400 font-medium">Moderate Risk</p>
+                <p className="text-gray-300 mt-2">
+                  Moderate risk of wildfire due to current weather conditions.
+                </p>
+              </div>
+              <div className="h-24 w-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center">
+                <span className="text-3xl font-bold">6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Historical Wildfire Map */}
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
+                Past Wildfire Locations
+              </h3>
+              <div className="h-48 bg-slate-700 rounded-lg flex items-center justify-center">
+                <p className="text-gray-400">Map Placeholder</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Fire Response Tips */}
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
+                Fire Response Tips
+              </h3>
+              <ul className="space-y-2">
+                {safetyTips.map((tip, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-500 text-white mr-3">
+                      {index + 1}
+                    </span>
+                    <p className="text-gray-300">{tip}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 

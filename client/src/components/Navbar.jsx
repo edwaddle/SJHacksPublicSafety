@@ -1,4 +1,4 @@
-import { Home, MessageSquare, Newspaper } from "lucide-react";
+import { Home, MessageSquare } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -25,7 +25,6 @@ const Navbar = () => {
           <MessageSquare className="h-6 w-6 mb-1" />
           <span>Chat</span>
         </Link>
-
       </nav>
     </div>
   );
