@@ -26,10 +26,6 @@ const Navbar = () => {
           <span>Chat</span>
         </Link>
 
-        <Link to="/news" className={getNavItemClass("/news")}>
-          <Newspaper className="h-6 w-6 mb-1" />
-          <span>News</span>
-        </Link>
       </nav>
     </div>
   );
