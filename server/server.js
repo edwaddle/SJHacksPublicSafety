@@ -5,6 +5,8 @@ const axios = require("axios");
 const multer = require("multer");
 const path = require("path");
 const OpenAI = require("openai");
+const weatherRoutes = require('./routes/weather');
+const wildfireRoutes = require('./routes/wildfire');
 
 // Create Express app
 const app = express();
@@ -21,6 +23,10 @@ const openai = new OpenAI({
 });
 
 const PORT = process.env.PORT || 3001;
+
+// Set up API routes
+app.use("/api/weather", weatherRoutes);
+app.use("/api/wildfires", wildfireRoutes);
 
 // Endpoint for image analysis
 app.post("/api/analyze-image", upload.single("image"), async (req, res) => {
