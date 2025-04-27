@@ -1,7 +1,14 @@
 import React from "react";
-import { Thermometer, Droplet, Wind, AlertTriangle, Map, Cloud, Clock } from "lucide-react";
+import {
+  Thermometer,
+  Droplet,
+  Wind,
+  AlertTriangle,
+  Map,
+  Cloud,
+  Clock,
+} from "lucide-react";
 import "../index.css";
-import { Button } from "@/components/ui/button";
 
 const Home = () => {
   const safetyTips = [
@@ -18,7 +25,7 @@ const Home = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-amber-400">
           EmbrAlrt - Wildfire Monitoring
         </h1>
-        
+
         <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-white">
           Downtown San Jose, CA
         </h2>
@@ -164,19 +171,19 @@ const Home = () => {
         {/* Forecast and Risk Time */}
         <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
           <div className="p-5">
-            <h3 className="text-xl font-semibold mb-4 text-white">
-              Forecast
-            </h3>
+            <h3 className="text-xl font-semibold mb-4 text-white">Forecast</h3>
             <div className="flex items-center mb-4">
               <Cloud className="mr-3 text-blue-400" size={24} />
               <p className="text-gray-300">
-                AQI forecast: <span className="text-yellow-500 font-medium">90 tomorrow</span>
+                AQI forecast:{" "}
+                <span className="text-yellow-500 font-medium">90 tomorrow</span>
               </p>
             </div>
             <div className="flex items-center">
               <Clock className="mr-3 text-gray-400" size={24} />
               <p className="text-gray-300">
-                Highest Fire Risk expected at <span className="text-red-400 font-medium">3PM</span>
+                Highest Fire Risk expected at{" "}
+                <span className="text-red-400 font-medium">3PM</span>
               </p>
             </div>
           </div>
