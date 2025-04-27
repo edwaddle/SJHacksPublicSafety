@@ -1,4 +1,4 @@
-import { Home, MessageSquare, Newspaper } from "lucide-react";
+import { Home, MessageSquare, Upload } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -21,11 +21,17 @@ const Navbar = () => {
           <span>Home</span>
         </Link>
 
+        <Link to="/upload" className={getNavItemClass("/upload")}>
+          <Upload className="h-6 w-6 mb-1" />
+          <span>Upload</span>
+        </Link>
+        
         <Link to="/chat" className={getNavItemClass("/chat")}>
           <MessageSquare className="h-6 w-6 mb-1" />
           <span>Chat</span>
         </Link>
 
+        
       </nav>
     </div>
   );
