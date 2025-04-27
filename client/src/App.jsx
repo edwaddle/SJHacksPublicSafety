@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Camera from "./pages/Camera";
 import Chat from "./pages/Chat";
 
 const theme = createTheme({
