@@ -2,7 +2,7 @@
  * API utilities for connecting to the backend
  */
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://localhost:4000';
 
 /**
  * Create fetch options with CORS workarounds
