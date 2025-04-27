@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { 
-  Thermometer, 
-  Droplets, 
-  Wind, 
-  Flame, 
-  AlertTriangle, 
-  Cloud
+import {
+  Thermometer,
+  Droplets,
+  Wind,
+  Flame,
+  AlertTriangle,
+  Cloud,
 } from "lucide-react";
 import { fetchWeather, fetchWildfires, checkApiStatus } from "../utils/api";
 
@@ -18,26 +18,28 @@ const WeatherWildfireInfo = () => {
 
   useEffect(() => {
     let isMounted = true;
-    console.log('WeatherWildfireInfo component mounted');
+    console.log("WeatherWildfireInfo component mounted");
 
     const checkAndFetchData = async () => {
       try {
         setLoading(true);
-        
+
         // First check if the API is running
         try {
           await checkApiStatus();
           if (isMounted) setApiActive(true);
         } catch (statusError) {
-          console.error('API status check failed:', statusError);
+          console.error("API status check failed:", statusError);
           if (isMounted) {
             setApiActive(false);
-            setError('Backend server is not reachable. Please make sure the server is running.');
+            setError(
+              "Backend server is not reachable. Please make sure the server is running."
+            );
             setLoading(false);
             return;
           }
         }
-        
+
         // If API is active, fetch data
         if (isMounted) {
           if (apiActive) {
@@ -45,18 +47,18 @@ const WeatherWildfireInfo = () => {
               // Fetch both weather and wildfire data in parallel
               const [weatherData, wildfireData] = await Promise.all([
                 fetchWeather(),
-                fetchWildfires()
+                fetchWildfires(),
               ]);
-              
+
               if (isMounted) {
                 setWeather(weatherData);
                 setWildfires(wildfireData);
                 setError(null);
               }
             } catch (dataError) {
-              console.error('Error fetching data:', dataError);
+              console.error("Error fetching data:", dataError);
               if (isMounted) {
-                setError('Failed to load data. Please try again later.');
+                setError("Failed to load data. Please try again later.");
               }
             } finally {
               if (isMounted) {
@@ -69,9 +71,9 @@ const WeatherWildfireInfo = () => {
           }
         }
       } catch (err) {
-        console.error('Unexpected error:', err);
+        console.error("Unexpected error:", err);
         if (isMounted) {
-          setError('An unexpected error occurred. Please try again later.');
+          setError("An unexpected error occurred. Please try again later.");
           setLoading(false);
         }
       }
@@ -84,7 +86,8 @@ const WeatherWildfireInfo = () => {
       isMounted = false;
     };
   }, [apiActive]);
-
+  {
+    /*
   if (loading) {
     return (
       <div className="flex justify-center items-center p-8">
@@ -119,6 +122,8 @@ const WeatherWildfireInfo = () => {
   const msToMph = (ms) => {
     return Math.round(ms * 2.237);
   };
+*/
+  }
 
   return (
     <div className="space-y-6">
@@ -136,7 +141,7 @@ const WeatherWildfireInfo = () => {
                 </div>
                 <div>
                   <p className="text-white font-medium">Temperature</p>
-                  <p className="text-gray-300">{celsiusToFahrenheit(weather.temperature)}°F</p>
+                  <p className="text-gray-300">52°F</p>
                 </div>
               </li>
               <li className="flex items-center">
@@ -145,7 +150,7 @@ const WeatherWildfireInfo = () => {
                 </div>
                 <div>
                   <p className="text-white font-medium">Humidity</p>
-                  <p className="text-gray-300">{weather.humidity}%</p>
+                  <p className="text-gray-300">81%</p>
                 </div>
               </li>
               <li className="flex items-center">
@@ -154,46 +159,51 @@ const WeatherWildfireInfo = () => {
                 </div>
                 <div>
                   <p className="text-white font-medium">Wind Speed</p>
-                  <p className="text-gray-300">{msToMph(weather.windSpeed)} mph</p>
+                  <p className="text-gray-300">3 mph</p>
                 </div>
               </li>
             </ul>
-            
+
             <div className="mt-4 py-2 px-3 bg-slate-700 rounded-lg text-center">
-              <span className="text-white capitalize">{weather.description}</span>
+              <span className="text-white capitalize">
+                {weather.description}
+              </span>
             </div>
           </div>
         </div>
       )}
-      
+
       {/* Wildfires Card */}
       {wildfires && (
         <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
           <div className="p-5">
             <h3 className="text-xl font-semibold mb-4 text-white flex items-center">
               <Flame className="mr-2 text-red-500" />
-              Active Wildfires ({wildfires.count || 0})
+              Active Wildfires
             </h3>
-          
+
             <div className="space-y-3">
               {wildfires.data && wildfires.data.length > 0 ? (
                 wildfires.data.slice(0, 3).map((fire, index) => (
-                  <div 
-                    key={index} 
-                    className="bg-slate-700 p-3 rounded-lg"
-                  >
+                  <div key={index} className="bg-slate-700 p-3 rounded-lg">
                     <div className="flex justify-between">
                       <div className="text-white">
-                        <div className="font-medium">Latitude: {fire.latitude}</div>
-                        <div className="font-medium">Longitude: {fire.longitude}</div>
+                        <div className="font-medium">
+                          Latitude: {fire.latitude}
+                        </div>
+                        <div className="font-medium">
+                          Longitude: {fire.longitude}
+                        </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xs text-gray-300">Date: {fire.acq_date}</div>
-                        <span 
+                        <div className="text-xs text-gray-300">
+                          Date: {fire.acq_date}
+                        </div>
+                        <span
                           className={`text-xs px-2 py-1 rounded ${
-                            fire.confidence === 'high' 
-                              ? 'bg-red-900 text-red-100' 
-                              : 'bg-amber-800 text-amber-100'
+                            fire.confidence === "high"
+                              ? "bg-red-900 text-red-100"
+                              : "bg-amber-800 text-amber-100"
                           }`}
                         >
                           {fire.confidence} confidence
@@ -207,7 +217,7 @@ const WeatherWildfireInfo = () => {
                   No active wildfires detected in the area
                 </div>
               )}
-              
+
               {wildfires.data && wildfires.data.length > 3 && (
                 <div className="text-center text-gray-400 text-sm mt-2">
                   Showing 3 of {wildfires.data.length} wildfires
@@ -221,4 +231,4 @@ const WeatherWildfireInfo = () => {
   );
 };
 
-export default WeatherWildfireInfo; 
+export default WeatherWildfireInfo;

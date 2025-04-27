@@ -1,5 +1,13 @@
 import React from "react";
-import { Thermometer, Droplet, Wind, AlertTriangle, Map, Cloud, Clock } from "lucide-react";
+import {
+  Thermometer,
+  Droplet,
+  Wind,
+  AlertTriangle,
+  Map,
+  Cloud,
+  Clock,
+} from "lucide-react";
 import "../index.css";
 import { Button } from "@/components/ui/button";
 import WeatherWildfireInfo from "../components/WeatherWildfireInfo";
@@ -19,14 +27,53 @@ const Home = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-amber-400">
           EmbrAlrt - Wildfire Monitoring
         </h1>
-        
+
         <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-white">
           Downtown San Jose, CA
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Weather Component - Live Data */}
-          <WeatherWildfireInfo />
+          <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
+            <div className="p-5">
+              <h3 className="text-xl font-semibold mb-4 text-white">
+                Current Conditions
+              </h3>
+              <ul className="space-y-4">
+                <li className="flex items-center">
+                  <div className="mr-3 text-amber-400">
+                    <Thermometer size={24} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Temperature</p>
+                    <p className="text-gray-300">52°F</p>
+                  </div>
+                </li>
+                <li className="flex items-center">
+                  <div className="mr-3 text-blue-400">
+                    <Droplet size={24} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Humidity</p>
+                    <p className="text-gray-300">81%</p>
+                  </div>
+                </li>
+                <li className="flex items-center">
+                  <div className="mr-3 text-gray-400">
+                    <Wind size={24} />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Wind Speed</p>
+                    <p className="text-gray-300">3 mph</p>
+                  </div>
+                </li>
+              </ul>
+
+              <div className="mt-4 py-2 px-3 bg-slate-700 rounded-lg text-center">
+                <span className="text-white capitalize">Safe conditions!</span>
+              </div>
+            </div>
+          </div>
 
           {/* Air Quality */}
           <div className="bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
@@ -34,11 +81,8 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-4 text-white">
                 Air Quality
               </h3>
-              <p className="text-3xl font-bold text-yellow-500 mb-2">85 AQI</p>
-              <p className="text-gray-300">
-                Moderate: Acceptable; however, there may be a risk for some
-                people.
-              </p>
+              <p className="text-3xl font-bold text-green-500 mb-2">41 AQI</p>
+              <p className="text-gray-300">Good: No health concerns.</p>
             </div>
           </div>
         </div>
@@ -51,25 +95,26 @@ const Home = () => {
             </h3>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-3xl font-bold text-orange-500 mb-1">6/10</p>
-                <p className="text-orange-400 font-medium">Moderate Risk</p>
+                <p className="text-3xl font-bold text-green-500 mb-1">2/10</p>
+                <p className="text-green-400 font-medium">Stable Conditions</p>
                 <p className="text-gray-300 mt-2">
-                  Moderate risk of wildfire due to current weather conditions.
+                  Stable conditions, unlikely for wildfire to occur due to
+                  current weather conditions.
                 </p>
               </div>
-              <div className="h-24 w-24 rounded-full bg-gradient-to-br from-yellow-400 to-red-500 flex items-center justify-center">
-                <span className="text-3xl font-bold">6</span>
+              <div className="h-24 w-24 rounded-full bg-gradient-to-br from-green-400 to-yellow-500 flex items-center justify-center">
+                <span className="text-3xl font-bold">2</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Fire Weather Alert */}
-        <div className="mb-8 bg-red-600 rounded-xl shadow-lg overflow-hidden">
+        <div className="mb-8 bg-green-600 rounded-xl shadow-lg overflow-hidden">
           <div className="p-5 flex items-center">
             <AlertTriangle size={28} className="mr-3 text-white" />
             <h3 className="text-xl font-semibold text-white">
-              Red Flag Warning: Critical Fire Conditions
+              Green Flag Warning: Stable Conditions
             </h3>
           </div>
         </div>
@@ -81,8 +126,12 @@ const Home = () => {
               <h3 className="text-xl font-semibold mb-4 text-white">
                 Past Wildfire Locations
               </h3>
-              <div className="h-48 bg-slate-700 rounded-lg flex items-center justify-center">
-                <p className="text-gray-400">Map Placeholder</p>
+              <div className="h-48 bg-slate-700 rounded-lg flex items-center justify-center overflow-hidden">
+                <img
+                  src="/map.png"
+                  alt="Past Wildfire Locations Map"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -130,19 +179,19 @@ const Home = () => {
         {/* Forecast and Risk Time */}
         <div className="mb-8 bg-slate-800 rounded-xl shadow-lg overflow-hidden border border-slate-700">
           <div className="p-5">
-            <h3 className="text-xl font-semibold mb-4 text-white">
-              Forecast
-            </h3>
+            <h3 className="text-xl font-semibold mb-4 text-white">Forecast</h3>
             <div className="flex items-center mb-4">
               <Cloud className="mr-3 text-blue-400" size={24} />
               <p className="text-gray-300">
-                AQI forecast: <span className="text-yellow-500 font-medium">90 tomorrow</span>
+                AQI forecast:{" "}
+                <span className="text-green-500 font-medium">43 tomorrow</span>
               </p>
             </div>
             <div className="flex items-center">
               <Clock className="mr-3 text-gray-400" size={24} />
               <p className="text-gray-300">
-                Highest Fire Risk expected at <span className="text-red-400 font-medium">3PM</span>
+                Highest Fire Risk expected at{" "}
+                <span className="text-red-400 font-medium">3PM</span>
               </p>
             </div>
           </div>
