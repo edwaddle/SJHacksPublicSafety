@@ -1,4 +1,16 @@
+# EmbrAlert
 
+EmbrAlert is a full-stack wildfire detection, prevention, and community alert application designed for the diverse San Jose area and beyond. It provides real-time wildfire risk assessments, weather and air quality updates, AI-driven smoke detection, multilingual chatbot support, and live camera wildfire detection.
+
+> 🛠️ This project was built during **SJHacks**, a 24-hour hackathon hosted in San Jose, California. Our goal was to create a proactive solution to help communities detect and prevent wildfires before they spread.
+
+## Features
+- 🔥 Real-time wildfire risk prediction using a lightweight RNN model
+- 🌎 Live weather and air quality data dashboard
+- 📸 Upload images or use live camera for instant smoke detection
+- 💬 Multilingual chat system powered by a custom RAG pipeline (supports six languages)
+- 🎙️ Voice and text input capabilities
+- 🌐 Optimized for both web and mobile devices
 ---
 
 ## Getting Started
