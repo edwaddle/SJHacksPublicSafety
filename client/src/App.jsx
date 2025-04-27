@@ -56,7 +56,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/camera" element={<Camera />} />
           <Route path="/chat" element={<Chat />} />
         </Routes>
       </Router>
