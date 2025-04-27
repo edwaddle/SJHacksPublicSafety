@@ -2,8 +2,7 @@
 
 ## Description
 
-Wildfire detecting app, with built in chatbot capable of auto translation, image detection, and 24/7 service.
-Allows user to monitor the current weather, displaying important features that increase the possibility for wildfires.
+EmbrAlert is a one-stop platform for wildfire detection, prevention, and community alerts, built for the diverse San Jose area and beyond. It offers real-time wildfire risk assessments, live weather and air quality updates, and a simple dashboard for users to interact with. Users can upload images of potential smoke, and our lightweight RNN model predicts wildfire likelihood. The app also features a multilingual chat tool powered by a custom RAG pipeline, supporting six languages common in San Jose, with both voice and text input. Live camera wildfire detection without uploads is also integrated for instant reporting.
 
 ## Contributors
 
@@ -28,16 +27,22 @@ port: 5173
 
 2. bash setup.sh
 
-3. npm i
+3. npm run dev
 
-4. npm i lucide-react
+## Built with
 
-5. npm install -D tailwindcss postcss autoprefixer @types/node shadcn-ui
+- React
 
-6. npx shadcn-ui@latest init
+- Vite
 
-7. npx shadcn@latest init
+- Python
 
-8. npx tailwindcss init -p
+- LangChain
 
-9. npm run dev
+- LangGraph
+
+- RAG Pipeline Architecture
+
+- Conventional RNN Model
+
+- AstraDB Vector Database
