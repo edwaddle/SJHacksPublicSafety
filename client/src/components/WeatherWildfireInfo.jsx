@@ -29,6 +29,7 @@ const WeatherWildfireInfo = () => {
 
   useEffect(() => {
     let isMounted = true;
+    console.log('WeatherWildfireInfo component mounted');
 
     const checkAndFetchData = async () => {
       try {
@@ -49,28 +50,33 @@ const WeatherWildfireInfo = () => {
         }
         
         // If API is active, fetch data
-        if (isMounted && apiActive) {
-          try {
-            // Fetch both weather and wildfire data in parallel
-            const [weatherData, wildfireData] = await Promise.all([
-              fetchWeather(),
-              fetchWildfires()
-            ]);
-            
-            if (isMounted) {
-              setWeather(weatherData);
-              setWildfires(wildfireData);
-              setError(null);
+        if (isMounted) {
+          if (apiActive) {
+            try {
+              // Fetch both weather and wildfire data in parallel
+              const [weatherData, wildfireData] = await Promise.all([
+                fetchWeather(),
+                fetchWildfires()
+              ]);
+              
+              if (isMounted) {
+                setWeather(weatherData);
+                setWildfires(wildfireData);
+                setError(null);
+              }
+            } catch (dataError) {
+              console.error('Error fetching data:', dataError);
+              if (isMounted) {
+                setError('Failed to load data. Please try again later.');
+              }
+            } finally {
+              if (isMounted) {
+                setLoading(false);
+              }
             }
-          } catch (dataError) {
-            console.error('Error fetching data:', dataError);
-            if (isMounted) {
-              setError('Failed to load data. Please try again later.');
-            }
-          } finally {
-            if (isMounted) {
-              setLoading(false);
-            }
+          } else {
+            // Make sure loading is set to false if API is not active
+            setLoading(false);
           }
         }
       } catch (err) {
@@ -88,7 +94,7 @@ const WeatherWildfireInfo = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [apiActive]);
 
   if (loading) {
     return (
@@ -160,41 +166,41 @@ const WeatherWildfireInfo = () => {
           </h2>
           
           <div className="space-y-3">
-            {wildfires.data && wildfires.data.slice(0, 3).map((fire, index) => (
-              <div 
-                key={index} 
-                className="bg-slate-700 p-3 rounded-lg"
-              >
-                <div className="flex justify-between">
-                  <div className="text-white">
-                    <div className="font-medium">Latitude: {fire.latitude}</div>
-                    <div className="font-medium">Longitude: {fire.longitude}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs text-gray-300">Date: {fire.acq_date}</div>
-                    <span 
-                      className={`text-xs px-2 py-1 rounded ${
-                        fire.confidence === 'high' 
-                          ? 'bg-red-900 text-red-100' 
-                          : 'bg-amber-800 text-amber-100'
-                      }`}
-                    >
-                      {fire.confidence} confidence
-                    </span>
+            {wildfires.data && wildfires.data.length > 0 ? (
+              wildfires.data.slice(0, 3).map((fire, index) => (
+                <div 
+                  key={index} 
+                  className="bg-slate-700 p-3 rounded-lg"
+                >
+                  <div className="flex justify-between">
+                    <div className="text-white">
+                      <div className="font-medium">Latitude: {fire.latitude}</div>
+                      <div className="font-medium">Longitude: {fire.longitude}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs text-gray-300">Date: {fire.acq_date}</div>
+                      <span 
+                        className={`text-xs px-2 py-1 rounded ${
+                          fire.confidence === 'high' 
+                            ? 'bg-red-900 text-red-100' 
+                            : 'bg-amber-800 text-amber-100'
+                        }`}
+                      >
+                        {fire.confidence} confidence
+                      </span>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-center text-gray-300 py-4">
+                No active wildfires detected in the area
               </div>
-            ))}
+            )}
             
             {wildfires.data && wildfires.data.length > 3 && (
               <div className="text-center text-gray-400 text-sm mt-2">
                 Showing 3 of {wildfires.data.length} wildfires
-              </div>
-            )}
-            
-            {(!wildfires.data || wildfires.data.length === 0) && (
-              <div className="text-center text-gray-300 py-4">
-                No active wildfires data available
               </div>
             )}
           </div>

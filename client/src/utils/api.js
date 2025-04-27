@@ -83,10 +83,27 @@ export const fetchWildfires = async () => {
     
     const data = await response.json();
     console.log('Wildfire data received:', data);
+    
+    // Make sure we have a valid data structure even if backend returns unexpected format
+    if (!data || typeof data !== 'object') {
+      console.warn('Wildfire API returned invalid data format, using empty template');
+      return { success: true, count: 0, data: [] };
+    }
+    
+    // Ensure data has the expected structure
+    if (!Array.isArray(data.data)) {
+      data.data = [];
+    }
+    
+    if (typeof data.count !== 'number') {
+      data.count = data.data ? data.data.length : 0;
+    }
+    
     return data;
   } catch (error) {
     console.error('Error fetching wildfire data:', error);
-    throw error;
+    // Return a valid empty response object instead of throwing
+    return { success: false, count: 0, data: [], error: error.message };
   }
 };
 
