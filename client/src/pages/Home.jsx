@@ -11,9 +11,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import WarningIcon from "@mui/icons-material/Warning";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import TimelineIcon from "@mui/icons-material/Timeline";
+
 import {
   Thermometer,
   Droplet,
@@ -37,13 +35,8 @@ const Home = () => {
 
   return (
     <Box sx={{ p: 3, pb: 8 }}>
-      <div className="flex flex-col items-center justify-center">
-        <div className="text-black">LMAOO</div>
-        <div className="text-white">LMAOO</div>
-      </div>
-      <div className="flex flex-col items-center justify-center min-h-svh">
-        <Button>Click me</Button>
-      </div>
+      
+      
       <Typography variant="h4" component="h1" gutterBottom color="text.primary">
         Downtown San Jose, CA
       </Typography>
